@@ -4,8 +4,8 @@
     <span class="spacer"></span>
 
     <mat-menu #appAccountMenu="matMenu">
-        <button mat-menu-item>Register</button>
-        <button mat-menu-item>Login</button>
+        <button routerLink="register" mat-menu-item>Register</button>
+        <button routerLink="login" mat-menu-item>Login</button>
     </mat-menu>
 
     <a mat-fab class="account-button-color" [matMenuTriggerFor]="appAccountMenu">
