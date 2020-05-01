@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
+import { RegisterloginComponent} from './registerlogin/registerlogin.component';
 
 const routes: Routes = [
-  {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent},
+  {path: '', component: SearchBoxComponent},
+  {path: 'registerLogin', component: RegisterloginComponent},
 ];
 
 @NgModule({
