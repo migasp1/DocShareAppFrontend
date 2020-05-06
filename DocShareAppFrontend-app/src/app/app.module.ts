@@ -5,6 +5,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +23,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatInputModule} from '@angular/material/input';
 import { LoginComponent } from './login/login.component';
 import { RegisterloginComponent } from './registerlogin/registerlogin.component';
+import { RegisterService } from './shared/register.service';
 
 
 @NgModule({
@@ -45,9 +49,10 @@ import { RegisterloginComponent } from './registerlogin/registerlogin.component'
     MatChipsModule,
     MatButtonModule,
     MatInputModule,
-	  FormsModule,
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

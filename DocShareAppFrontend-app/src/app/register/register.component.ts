@@ -1,79 +1,91 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RegisterService } from '../shared/register.service';
+import { FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
+  formDirective: FormGroupDirective;
   myForm: FormGroup;
   hide = true;
 
-  constructor(private fb: FormBuilder) {
-  
-   }
+  constructor(private fb: FormBuilder, public service: RegisterService) { }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
-      firstName: ['' , 
-      [Validators.required,
+      FirstName: ['',
+        [Validators.required,
         Validators.minLength(2)
-      ]], 
-      lastName: ['' , 
-      [Validators.required,
+        ]],
+      LastName: ['',
+        [Validators.required,
         Validators.minLength(2)
-      ]], 
-      email: ['', [Validators.email,
+        ]],
+      Email: ['', [Validators.email,
       Validators.required]],
-      password: ['',[ Validators.required
+      Password: ['', [Validators.required
         //Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[a-zA-Z0-9]+)$')
       ]]
-    }); 
+    });
   }
 
-    get email(){
-      return this.myForm.get('email');
-    }
+  submitHandler(formDirective: FormGroupDirective) {
+    console.log(this.myForm.value);
+    this.service.postRegister(this.myForm.value).subscribe(
+      (response: any) => {
+        if (response.succeeded)
+        this.myForm.reset();
+        formDirective.resetForm();
+      },
+      err => { console.log(err); }
+    );
+  }
 
-    get firstName(){
-      return this.myForm.get('firstName');
-    }
+  get FirstName() {
+    return this.myForm.get('FirstName');
+  }
 
-    get lastName(){
-      return this.myForm.get('lastName');
-    }
+  get LastName() {
+    return this.myForm.get('LastName');
+  }
 
-    get password(){
-      return this.myForm.get('password');
-    }
+  get Email() {
+    return this.myForm.get('Email');
+  }
 
-    getErrorMessageFirstName(){
-      if (this.firstName.hasError('required')){
-        return 'You must enter a value';
-      }
-    }
+  get Password() {
+    return this.myForm.get('Password');
+  }
 
-    getErrorMessageLastName(){
-      if (this.lastName.hasError('required')){
-        return 'You must enter a value';
+  getErrorMessageFirstName() {
+    if (this.FirstName.hasError('required')) {
+      return 'You must enter a value';
     }
   }
 
-    getErrorMessageEmail() {
-      if (this.email.hasError('required')) {
-        return 'You must enter a value';
-      }
-  
-      return this.email.hasError('email') ? 'Not a valid email' : '';
+  getErrorMessageLastName() {
+    if (this.LastName.hasError('required')) {
+      return 'You must enter a value';
+    }
+  }
+
+  getErrorMessageEmail() {
+    if (this.Email.hasError('required')) {
+      return 'You must enter a value';
     }
 
-    getErrorMessagePassword(){
-      if (this.password.hasError('required')){
-        return 'You must enter a value';
-      }
-      return this.password.hasError('password') ? 'Not a valid password' : '';
+    return this.Email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  getErrorMessagePassword() {
+    if (this.Password.hasError('required')) {
+      return 'You must enter a value';
     }
+    return this.Password.hasError('password') ? 'Not a valid password' : '';
+  }
 }
-
