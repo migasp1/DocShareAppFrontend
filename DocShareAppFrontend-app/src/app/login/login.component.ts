@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RegisterService } from '../shared/register.service';
+import { FormGroupDirective } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,39 +16,45 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide = true;
 
-  constructor(private fb: FormBuilder) {
-   }
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.email,
+      Email: ['', [Validators.email,
       Validators.required]],
-      password: ['',[ Validators.required
+      Password: ['',[ Validators.required
         //Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[a-zA-Z0-9]+)$')
       ]]
     }); 
+    
   }
 
-    get email(){
-      return this.loginForm.get('email');
+  submitHandler(formDirective: FormGroupDirective) {
+    this.authService.postLogin(this.loginForm.value, formDirective);
+  }
+
+    get Email(){
+      return this.loginForm.get('Email');
     }
 
-    get password(){
-      return this.loginForm.get('password');
+    get Password(){
+      return this.loginForm.get('Password');
     }
 
     getErrorMessageEmail() {
-      if (this.email.hasError('required')) {
+      if (this.Email.hasError('required')) {
         return 'You must enter a value';
       }
   
-      return this.email.hasError('email') ? 'Not a valid email' : '';
+      return this.Email.hasError('email') ? 'Not a valid email' : '';
     }
 
     getErrorMessagePassword(){
-      if (this.password.hasError('required')){
+      if (this.Password.hasError('required')){
         return 'You must enter a value';
       }
-      return this.password.hasError('password') ? 'Not a valid password' : '';
+      return this.Password.hasError('password') ? 'Not a valid password' : '';
     }
 }

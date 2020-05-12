@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterService } from '../shared/register.service';
 import { FormGroupDirective } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,6 @@ import { FormGroupDirective } from '@angular/forms';
 })
 export class RegisterComponent {
 
-  formDirective: FormGroupDirective;
   myForm: FormGroup;
   hide = true;
 
@@ -35,16 +35,9 @@ export class RegisterComponent {
   }
 
   submitHandler(formDirective: FormGroupDirective) {
-    console.log(this.myForm.value);
-    this.service.postRegister(this.myForm.value).subscribe(
-      (response: any) => {
-        if (response.succeeded)
-        this.myForm.reset();
-        formDirective.resetForm();
-      },
-      err => { console.log(err); }
-    );
+    this.service.postRegister(this.myForm.value, formDirective);
   }
+
 
   get FirstName() {
     return this.myForm.get('FirstName');

@@ -3,13 +3,19 @@
         <img class="top-bar-logo" src="assets/Images/DocShareAppLogo.png" alt="DocShareApp-Automobile">
     </a>
     <span class="spacer"></span>
+    <div class="spaceInButtons" *ngIf="isLoggedIn">
+        <mat-menu #appAccountMenu="matMenu">
+            <button routerLink="personalInfo" mat-menu-item>Personal Info</button>
+        </mat-menu>
 
-    <mat-menu #appAccountMenu="matMenu">
+        <a mat-raised-button class="account-button-color" [matMenuTriggerFor]="appAccountMenu">
+            My Account
+        </a>
+    </div>
+    <mat-menu #appFabAccount="matMenu">
         <button routerLink="registerLogin" mat-menu-item>Register/Login</button>
     </mat-menu>
-
-    <a mat-fab class="account-button-color" [matMenuTriggerFor]="appAccountMenu">
+    <a mat-fab class="account-button-color" [matMenuTriggerFor]="appFabAccount">
         <mat-icon>account_circle</mat-icon>
     </a>
 </mat-toolbar>
-

@@ -5,9 +5,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
-import { HttpClientModule } from '@angular/common/http';
-
-
+import { HttpClientModule } from '@angular/common/http'; 
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,7 +23,6 @@ import {MatInputModule} from '@angular/material/input';
 import { LoginComponent } from './login/login.component';
 import { RegisterloginComponent } from './registerlogin/registerlogin.component';
 import { RegisterService } from './shared/register.service';
-
 
 @NgModule({
   declarations: [
@@ -51,6 +49,7 @@ import { RegisterService } from './shared/register.service';
     MatInputModule,
     FormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [RegisterService],
   bootstrap: [AppComponent]

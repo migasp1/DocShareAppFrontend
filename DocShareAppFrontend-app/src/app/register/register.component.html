@@ -22,6 +22,7 @@
                 <mat-error *ngIf="LastName.invalid &&  LastName.touched">
                     {{getErrorMessageLastName()}}
                 </mat-error>
+               
             </mat-form-field>
         </div>
         <br>
@@ -32,7 +33,9 @@
                 <mat-error *ngIf="Email.invalid && Email.touched">
                     {{getErrorMessageEmail()}}
                 </mat-error>
-
+                <mat-error *ngIf="myForm.get('Email').errors?.serverError">
+                    {{myForm.get('Email').errors?.serverError}}
+                </mat-error>
             </mat-form-field>
         </div>
         <br>
